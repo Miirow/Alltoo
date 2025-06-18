@@ -1,0 +1,25 @@
+{% extends 'gestion/base.html' %}
+{% load static %}
+
+
+{% block title %}Supprimer Produits{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'gestion/style.css' %}">
+    <title>Supprimer Produits</title>
+</head>
+<body>
+    <h1>Supprimer le produit</h1>
+    <p>Es-tu sûr de vouloir supprimer le produit "{{ produit.nom }}" ?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">✅ Oui, supprimer</button>
+        <a href="{% url 'liste_produits' %}">❌ Annuler</a>
+    </form>
+</body>
+</html>
+{% endblock %}

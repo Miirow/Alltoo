@@ -1,0 +1,38 @@
+{% extends 'gestion/base.html' %}
+{% load static %}
+
+
+{% block title %}Liste des produits{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'gestion/style.css' %}">
+    <title>Produits</title>
+</head>
+<body>
+<h1>Liste des Produits</h1>
+<a href="{% url 'produit_create' %}">➕Ajouter un produit</a>
+<ul>
+    {% for produit in produits %}
+        <li>{{ produit.id }} - {{ produit.nom }} - {{ produit.prix }} € - {{ produit.date_peremption }}
+            <a href="{% url 'produit_update' produit.id %}">✏️</a>
+            <a href="{% url 'produit_delete' produit.id %}">🗑️</a>
+        </li>
+    {% endfor %}
+</ul>
+<div>
+    {% if produits.has_previous %}
+        <a href="?page={{ produits.previous_page_number }}">⬅️ Précédent</a>
+    {% endif %}
+    <span>Page {{ produits.number }} / {{ produits.paginator.num_pages }}</span>
+    {% if produits.has_next %}
+        <a href="?page={{ produits.next_page_number }}">Suivant ➡️</a>
+    {% endif %}
+</div>
+
+</body>
+</html>
+{% endblock %}

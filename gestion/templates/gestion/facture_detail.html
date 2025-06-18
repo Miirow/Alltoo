@@ -1,0 +1,29 @@
+{% extends 'gestion/base.html' %}
+{% load static %}
+
+
+{% block title %}Details Facture{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'gestion/style.css' %}">
+    <title>Details Facture</title>
+</head>
+<body>
+<h1>Détail de la facture n°{{ facture.id }}</h1>
+<p>Date : {{ facture.date }}</p>
+
+<ul>
+    {% for produit in facture.produits.all %}
+        <li>{{ produit.nom }} - {{ produit.prix }} €</li>
+    {% endfor %}
+</ul>
+
+<p><strong>Total :</strong> {{ facture.total }} €</p>
+<a href="{% url 'liste_produits' %}">⬅️ Retour aux produits</a>
+<a href="{% url 'facture_pdf' facture.id %}">📄 Télécharger PDF</a>
+</body>
+</html>
+{% endblock %}

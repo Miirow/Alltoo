@@ -1,0 +1,36 @@
+{% extends 'gestion/base.html' %}
+{% load static %}
+
+
+{% block title %}Liste des factures{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'gestion/style.css' %}">
+    <title>Liste des factures</title>
+</head>
+<body>
+    <h1>Liste des factures</h1>
+
+    <ul>
+        {% for facture in factures %}
+            <li>
+                Facture n°{{ facture.id }} - {{ facture.date|date:"d/m/Y H:i" }}
+                {% if facture.client %} - Client : {{ facture.client }}{% endif %}
+                <a href="{% url 'facture_detail' facture.id %}">🔍 Détails</a>
+                <a href="{% url 'facture_pdf' facture.id %}">📄 PDF</a>
+                <a href="{% url 'facture_delete' facture.id %}">🗑️ Supprimer</a>
+
+            </li>
+        {% empty %}
+            <li>Aucune facture enregistrée.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'creer_facture' %}">➕ Créer une facture</a><br>
+    <a href="{% url 'liste_produits' %}">⬅️ Retour aux produits</a>
+</body>
+</html>
+{% endblock %}
